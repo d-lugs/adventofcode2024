@@ -1,20 +1,59 @@
-# read input file
-input = open("./input.txt","r")
-lines = input.readlines()
+def main():
+    # read input file
+    input = open("input.txt","r")
+    lines = input.read().splitlines()
+    # determine if each "report" (line) is safe or not, count number of safe reports
+    # safe = all "levels" (numbers are increasing/decreasing by 1, 2, or 3
+    count = 0
+    for line in lines:
+        report = []
+        for level in line.split(): 
+            report.append(int(level))
 
-# determine if each "report" (line) is safe or not, count number of safe reports
-# safe = all "levels" (numbers are increasing/decreasing by 1, 2, or 3
-count = 0
-for l in lines:
-    # determine if report is in order
-    report = []
-    for level in l.split(): report.append(int(level))
-    if report == sorted(report): pass
-    elif report == sorted(report, reverse=True): pass
-    else: continue
-    # determine if each level in report is safe
-    safe = False
+        print(f"{str(report):<40}", end=" ")
+
+        gradual = is_gradual(report)
+        in_order = check_order(report)
+
+        # if not gradual: print("not gradual", end=" ")
+        # if not in_order: print("not in order", end=" ")
+        
+        safe = False
+        safe = gradual and in_order
+
+        if safe:
+            print("safe", end=" ")
+            count += 1
+
+        print()
+    
+    print(count)
+
+def is_gradual(report):
+    gradual = False
+    diffs = []
     for i in range(len(report)):
-        if i < len(report)-1:
-            if abs(report[i]-report[i+1]) > 3: continue
-print(count)
+        diff = 0
+        try:
+            diff = report[i+1] - report[i]
+            diffs.append(diff)
+            if abs(diff) > 4:
+                continue
+            else:
+                gradual = True
+        except IndexError:
+            pass
+    if 0 in diffs: gradual = False
+    print(f"{str(diffs):<40}", end=" ")
+    return gradual
+
+def check_order(report):
+    in_order = False
+    if report == sorted(report):
+        in_order = True
+    elif report == sorted(report, reverse=True):
+        in_order = True
+    else:
+        in_order = False
+    return in_order
+main()
