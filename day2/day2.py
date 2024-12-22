@@ -1,13 +1,15 @@
+# DAY 2
+# determine if each "report" (line) is safe or not, count number of safe reports
+# safe = all "levels" (numbers are increasing/decreasing by 1, 2, or 3
+
 def main():
-    # read input file
     input = open("input.txt","r")
     lines = input.read().splitlines()
-    # determine if each "report" (line) is safe or not, count number of safe reports
-    # safe = all "levels" (numbers are increasing/decreasing by 1, 2, or 3
-    count = 0
+
+ count = 0
     for line in lines:
         report = []
-        for level in line.split(): 
+        for level in line.split():
             report.append(int(level))
 
         print(f"{str(report):<40}", end=" ")
@@ -17,16 +19,13 @@ def main():
 
         # if not gradual: print("not gradual", end=" ")
         # if not in_order: print("not in order", end=" ")
-        
-        safe = False
-        safe = gradual and in_order
 
-        if safe:
-            print("safe", end=" ")
+        if gradual and in_order:
+            # print("safe", end=" ")
             count += 1
 
         print()
-    
+
     print(count)
 
 def is_gradual(report):
@@ -37,10 +36,11 @@ def is_gradual(report):
         try:
             diff = report[i+1] - report[i]
             diffs.append(diff)
-            if abs(diff) > 4:
-                continue
-            else:
+            if abs(diff) < 4:
                 gradual = True
+            else:
+                gradual = False
+                break
         except IndexError:
             pass
     if 0 in diffs: gradual = False
@@ -56,4 +56,5 @@ def check_order(report):
     else:
         in_order = False
     return in_order
+
 main()

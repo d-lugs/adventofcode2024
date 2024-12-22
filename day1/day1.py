@@ -1,3 +1,5 @@
+# DAY 1
+
 # read input file
 input = open("./input.txt", "r")
 lines = input.readlines()
