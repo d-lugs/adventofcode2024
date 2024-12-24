@@ -13,10 +13,7 @@ def main():
         for level in line.split():
             report.append(int(level))
 
-        gradual = is_gradual(report)
-        in_order = check_order(report)
-
-        if gradual and in_order:
+        if is_gradual(report) and check_order(report):
             count1 += 1
             count2 += 1
         elif with_dampener(report):
@@ -28,8 +25,10 @@ def main():
 def is_gradual(report):
     safe = False
     diffs = []
+    
     for i in range(len(report)):
         diff = 0
+
         try:
             diff = report[i+1] - report[i]
             diffs.append(diff)
@@ -49,12 +48,8 @@ def is_gradual(report):
 def check_order(report):
     safe = False
 
-    if report == sorted(report):
+    if report == sorted(report) or report == sorted(report, reverse=True):
         safe = True
-    elif report == sorted(report, reverse=True):
-        safe = True
-    else:
-        safe = False
 
     return safe
 
