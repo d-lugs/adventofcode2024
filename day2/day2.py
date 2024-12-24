@@ -6,7 +6,7 @@ def main():
     input = open("input.txt","r")
     lines = input.read().splitlines()
 
- count = 0
+    count = 0
     for line in lines:
         report = []
         for level in line.split():
