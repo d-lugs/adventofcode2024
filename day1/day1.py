@@ -1,4 +1,4 @@
-# DAY 1
+# DAY 1.1
 
 # read input file
 input = open("./input.txt", "r")
@@ -19,3 +19,15 @@ diff_total = 0
 for i in range(len(lines)):
     diff_total += abs(left[i]-right[i])
 print(diff_total)
+
+
+# DAY 1.2
+
+score = 0
+for i in left:
+    count = 0
+    for n in right:
+        if i == n:
+            count += 1
+    score += i * count
+print(score)
