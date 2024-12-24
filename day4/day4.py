@@ -25,7 +25,14 @@ def main():
 
 # each function should return a count of all instances of 'xmas' both forwards and backwards
 
-def findHorizontal(lines):
+def findHorizontal(array):
+    lines = []
+    for row in array:
+        line = ""
+        for char in row:
+            line += char
+        lines.append(line)
+
     regex_f = r"(XMAS)"
     regex_b = r"(SAMX)"
     count = 0
@@ -35,13 +42,7 @@ def findHorizontal(lines):
 
 def findVertical(array):
     transposed = [[row[i] for row in array] for i in range(len(array[0]))]
-    lines = []
-    for row in transposed:
-        line = ""
-        for char in row:
-            line += char
-        lines.append(line)
-    count = findHorizontal(lines)
+    count = findHorizontal(transposed)
     return count
 
 def findDiagonal(array):
@@ -57,20 +58,8 @@ def findDiagonal(array):
             fdiag[x+y].append(array[y][x])
             bdiag[x-y-min_bdiag].append(array[y][x])
 
-    def getLines(diag):
-        lines = []
-        for row in diag:
-            line = ""
-            for char in row:
-                line += char
-            lines.append(line)
-        return lines
-
-    fdiag_lines = getLines(fdiag)
-    bdiag_lines = getLines(bdiag)
-
     count = 0
-    count += findHorizontal(fdiag_lines) + findHorizontal(bdiag_lines)
+    count += findHorizontal(fdiag) + findHorizontal(bdiag)
 
     return count
 
