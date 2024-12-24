@@ -12,19 +12,11 @@ def main():
         for level in line.split():
             report.append(int(level))
 
-        print(f"{str(report):<40}", end=" ")
-
         gradual = is_gradual(report)
         in_order = check_order(report)
 
-        # if not gradual: print("not gradual", end=" ")
-        # if not in_order: print("not in order", end=" ")
-
         if gradual and in_order:
-            # print("safe", end=" ")
             count += 1
-
-        print()
 
     print(count)
 
@@ -44,7 +36,6 @@ def is_gradual(report):
         except IndexError:
             pass
     if 0 in diffs: gradual = False
-    print(f"{str(diffs):<40}", end=" ")
     return gradual
 
 def check_order(report):
